@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.devatom.market_kurly_ui_work_code">
+    package="com.example.flutter_application_1">
    <application
-        android:label="market_kurly_ui_work_code"
+        android:label="flutter_application_1"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
