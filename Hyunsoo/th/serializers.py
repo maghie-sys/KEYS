@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Er, ErAd, Th, ThGr, ThPic, all
+from .models import Er, ErAd, Th, ThGr, ThPic
 from django.db.models import Avg, Max, Min, Sum, Count
 #------------------------------------------------------------
 class home_recom_serializer(serializers.ModelSerializer):
@@ -44,16 +44,10 @@ class av_sh_th_gr_serializer(serializers.ModelSerializer):
 
     def get_ThGr_review(self, obj):
         return ThGr.objects.values('ThGr_review')
-#------------------------------------------------------------
-class sh_th_gr_serializer(serializers.ModelSerializer):
-    class Meta:
-        model = ThGr
-        fields = (
-            'ThGr_pt',
-            'ThGr_review'
-        )
+
 #------------------------------------------------------------
 class sh_th_serializer(serializers.ModelSerializer):
+    #ThGr = sh_th_gr_serializer(read_only=True)
     class Meta:
         model = Th
         fields = (
@@ -65,13 +59,15 @@ class sh_th_serializer(serializers.ModelSerializer):
             'Th_Act',
             'Th_Intro'
         )
-#------------------------------------------------------------
-class all_serializer(serializers.ModelSerializer):
+
+# ------------------------------------------------------------
+class sh_th_gr_serializer(serializers.ModelSerializer):
     th = sh_th_serializer(read_only=True)
-    thgr = sh_th_gr_serializer(read_only=True)
     class Meta:
-        model = all
-        field = (
-            'th',
-            'thgr'
+        model = ThGr
+        fields = (
+            'ThGr_CODE',
+            'ThGr_pt',
+            'ThGr_review',
+            'th'
         )

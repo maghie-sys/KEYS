@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Er, ErAd, Th, ThGr, ThPic, all
-from .serializers import home_recom_serializer, sh_th_serializer, sh_th_gr_serializer, av_sh_th_gr_serializer, all_serializer
+from .models import Er, ErAd, Th, ThGr, ThPic
+from .serializers import home_recom_serializer, sh_th_serializer, sh_th_gr_serializer, av_sh_th_gr_serializer
 from itertools import chain
 import random
 
@@ -27,9 +27,3 @@ def sh_th_gr(request,id):
     thgrs = ThGr.objects.filter(ThGr_CODE=id)
     serializer = sh_th_gr_serializer(thgrs, many=True)
     return  Response(serializer.data)
-
-@api_view(['GET'])
-def test(request,id):
-    query = all.objects.all()
-    serializer = all_serializer(query, many=True)
-    return Response(serializer.data)
