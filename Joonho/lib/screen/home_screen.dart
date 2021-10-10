@@ -67,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         BoxSlider(exit: exit),
+        Text("Keys는 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 거래에 관한 의무과 책임은 판매자(훈련기관)에게 있습니다. 시스템관련문의 : xxxx-xxxx(유료), 제도/자격문의 : nnnn-nnnn(유료),Copyright ⓒ 2021 Keys Company All Rights Reserved."),
+        
       ],
     );
   }

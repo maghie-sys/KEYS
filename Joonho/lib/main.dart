@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/screen/commuity_screen.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/widget/bottom_bar.dart';
@@ -15,6 +16,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "KEYS",
         theme: ThemeData(
           brightness: Brightness.light,
@@ -31,6 +33,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 //title: Text('KEYS_RROJECT'),
               ),**/
+              appBar: _buildKeysAppBar(),
               body: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
@@ -48,7 +51,40 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
-              bottomNavigationBar: Bottom(),
+              //bottomNavigationBar: Bottom(),
             )));
+  }
+
+  AppBar _buildKeysAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(
+        color: Colors.black, //change your color here
+      ),
+      elevation: 1.0,
+      leading: new Icon(Icons.home),
+      title: new Text("Keys", style: TextStyle(color: Color(0xff000000))),
+      actions: [
+        Icon(
+          CupertinoIcons.chat_bubble_text,
+          color: Colors.black,
+        ),
+        SizedBox(width: 10),
+        Icon(
+          CupertinoIcons.search,
+          color: Colors.black,
+        ),
+        SizedBox(width: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5.0),
+            child: Image(
+              image: AssetImage("images/keys_logo.png"),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
