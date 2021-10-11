@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Er, ErAd, Th, ThGr, ThPic
-from .serializers import home_recom_serializer, sh_th_serializer, sh_th_gr_serializer, av_sh_th_gr_serializer
+from .models import Er, ErAd, Th, ThGr, ThImg, All
+from django.db.models import Avg, Max, Min, Sum, Count
+from .serializers import home_recommand_se, show_review_se, show_theme_se, show_image_se, all_theme_se
 from itertools import chain
 import random
 
@@ -10,20 +11,32 @@ def helloAPI(request):
     return Response("helloworld")
 
 @api_view(['GET'])
-def home_recom_random(request, id):
+def home_recommand(request, id):
     totalThs = Th.objects.all()
     randomThs = random.sample(list(totalThs), id)
-    serializer = home_recom_serializer(randomThs, many=True)
+    serializer = home_recommand_se(randomThs, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def sh_th(request, id):
+def show_theme(request, id):
     Ths = Th.objects.filter(Th_CODE=id)
-    serializer = sh_th_serializer(Ths, many=True)
+    serializer = show_theme_se(Ths, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def sh_th_gr(request,id):
-    thgrs = ThGr.objects.filter(ThGr_CODE=id)
-    serializer = sh_th_gr_serializer(thgrs, many=True)
+def show_review(request,id):
+    thgrs = ThGr.objects.filter(Th_CODE=id)
+    serializer = show_review_se(thgrs, many=True)
     return  Response(serializer.data)
+
+@api_view(['GET'])
+def show_image(request,id):
+    img = ThImg.objects.all()
+    serializer = show_image_se(img, many=True)
+    return  Response(serializer.data)
+
+@api_view(['GET'])
+def all_theme(request, id):
+    all = All.objects.filter(Th_CODE = id)
+    serializer = all_theme_se(all, many=True)
+    return Response(serializer.data)
