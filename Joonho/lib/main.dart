@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_1/screen/commuity_screen.dart';
+import 'package:flutter_application_1/screen/community_screen.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
+import 'package:flutter_application_1/screen/search_screen.dart';
 import 'package:flutter_application_1/widget/bottom_bar.dart';
 
 void main() => runApp(MyApp());
@@ -26,23 +27,12 @@ class _MyAppState extends State<MyApp> {
         home: DefaultTabController(
             length: 4,
             child: Scaffold(
-              /**appBar: AppBar(
-                leading: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Image.asset('images/keys_logo.png'),
-                ),
-                //title: Text('KEYS_RROJECT'),
-              ),**/
               appBar: _buildKeysAppBar(),
               body: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   HomeScreen(),
-                  Container(
-                    child: Center(
-                      child: Text('2'),
-                    ),
-                  ),
+                  SearchScreen(),
                   CommuityScreen(),
                   Container(
                     child: Center(
@@ -51,7 +41,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
-              //bottomNavigationBar: Bottom(),
+              bottomNavigationBar: Bottom(),
             )));
   }
 
@@ -70,17 +60,29 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       title: new Text("Keys", style: TextStyle(color: Color(0xff000000))),
-      actions: [
-        Icon(
-          CupertinoIcons.chat_bubble_text,
-          color: Colors.black,
+      actions: <Widget>[
+        new IconButton(
+          icon: new Icon(Icons.chat),
+          //highlightColor: Colors.pink,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => CommuityScreen())); //커뮤니티로 화면 이동
+          },
         ),
-        SizedBox(width: 10),
-        Icon(
-          CupertinoIcons.search,
-          color: Colors.black,
+        //SizedBox(width: 10),
+        new IconButton(
+          icon: new Icon(Icons.search),
+          //highlightColor: Colors.pink,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => CommuityScreen())); //검색화면으로 넘어가게 해야함.
+          },
         ),
-        SizedBox(width: 10),
+        //SizedBox(width: 10),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: ClipRRect(
