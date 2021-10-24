@@ -4,11 +4,26 @@ import 'package:flutter_application_1/screen/community_screen.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/screen/search_screen.dart';
 import 'package:flutter_application_1/widget/bottom_bar.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
+}
+
+// ignore: non_constant_identifier_names
+void RestApi_Get() async {
+  http.Response response = await http.get(
+      Uri.parse('https://gus8154.pythonanywhere.com/th/hello'),
+      headers: {"Accept": "application/json"});
+  Map<String, dynamic> responseBody = jsonDecode(response.body);
+ 
+  print(response.body); // 결과 출력 ==> {"restapi" : "get" } 
+  //print(responseBody["Th_CODE"]); // 결과 출력 ==> get 
+
+  JsonObject jsonObject=JsonObject.fromJson(responseBody);
+  print(jsonObject);
 }
 
 //탭 바 설정 부분. 바 아이콘 개수 설정 및

@@ -20,6 +20,12 @@ class _CommuityScreenState extends State<CommuityScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
+        
+      ),
+      body: Container(
+        child: Row(
+
+        ),
       ),
     );
   }
