@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/screen/community_screen.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
+import 'package:flutter_application_1/screen/myinfo_screen.dart';
 import 'package:flutter_application_1/screen/search_screen.dart';
 import 'package:flutter_application_1/widget/bottom_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -18,12 +20,9 @@ void RestApi_Get() async {
       Uri.parse('https://gus8154.pythonanywhere.com/th/hello'),
       headers: {"Accept": "application/json"});
   Map<String, dynamic> responseBody = jsonDecode(response.body);
- 
-  print(response.body); // 결과 출력 ==> {"restapi" : "get" } 
-  //print(responseBody["Th_CODE"]); // 결과 출력 ==> get 
 
-  JsonObject jsonObject=JsonObject.fromJson(responseBody);
-  print(jsonObject);
+  print(response.body); // 결과 출력 ==> {"restapi" : "get" }
+  //print(responseBody["Th_CODE"]); // 결과 출력 ==> get
 }
 
 //탭 바 설정 부분. 바 아이콘 개수 설정 및
@@ -40,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           //accentColor: Colors.white,
         ),
         home: DefaultTabController(
-            length: 4,
+            length: 5,
             child: Scaffold(
               appBar: _buildKeysAppBar(),
               body: TabBarView(
@@ -51,9 +50,13 @@ class _MyAppState extends State<MyApp> {
                   CommuityScreen(),
                   Container(
                     child: Center(
-                      child: Text('4'),
+                      child: Text(
+                        '임시',
+                        style: TextStyle(color: Colors.blue, fontSize: 50),
+                      ),
                     ),
                   ),
+                  MyinfoScreen(),
                 ],
               ),
               bottomNavigationBar: Bottom(),
