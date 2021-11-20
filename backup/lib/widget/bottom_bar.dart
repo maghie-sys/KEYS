@@ -54,16 +54,6 @@ class Bottom extends StatelessWidget {
                       style: TextStyle(fontSize: 9),
                     ),
                   ),
-                  Tab(
-                    icon: Icon(
-                      Icons.face,
-                      size: 18,
-                    ),
-                    child: Text(
-                      '내정보',
-                      style: TextStyle(fontSize: 9),
-                    ),
-                  ),
                 ])));
   }
 }

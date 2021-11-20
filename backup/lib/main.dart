@@ -1,28 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_1/screen/community_screen.dart';
+import 'package:flutter_application_1/screen/commuity_screen.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
-import 'package:flutter_application_1/screen/myinfo_screen.dart';
-import 'package:flutter_application_1/screen/search_screen.dart';
 import 'package:flutter_application_1/widget/bottom_bar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
-}
-
-// ignore: non_constant_identifier_names
-void RestApi_Get() async {
-  http.Response response = await http.get(
-      Uri.parse('https://gus8154.pythonanywhere.com/th/hello'),
-      headers: {"Accept": "application/json"});
-  Map<String, dynamic> responseBody = jsonDecode(response.body);
-
-  print(response.body); // 결과 출력 ==> {"restapi" : "get" }
-  //print(responseBody["Th_CODE"]); // 결과 출력 ==> get
 }
 
 //탭 바 설정 부분. 바 아이콘 개수 설정 및
@@ -39,27 +24,34 @@ class _MyAppState extends State<MyApp> {
           //accentColor: Colors.white,
         ),
         home: DefaultTabController(
-            length: 5,
+            length: 4,
             child: Scaffold(
+              /**appBar: AppBar(
+                leading: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset('images/keys_logo.png'),
+                ),
+                //title: Text('KEYS_RROJECT'),
+              ),**/
               appBar: _buildKeysAppBar(),
               body: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   HomeScreen(),
-                  SearchScreen(),
+                  Container(
+                    child: Center(
+                      child: Text('2'),
+                    ),
+                  ),
                   CommuityScreen(),
                   Container(
                     child: Center(
-                      child: Text(
-                        '임시',
-                        style: TextStyle(color: Colors.blue, fontSize: 50),
-                      ),
+                      child: Text('4'),
                     ),
                   ),
-                  MyinfoScreen(),
                 ],
               ),
-              bottomNavigationBar: Bottom(),
+              //bottomNavigationBar: Bottom(),
             )));
   }
 
@@ -78,29 +70,17 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       title: new Text("Keys", style: TextStyle(color: Color(0xff000000))),
-      actions: <Widget>[
-        new IconButton(
-          icon: new Icon(Icons.chat),
-          //highlightColor: Colors.pink,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => CommuityScreen())); //커뮤니티로 화면 이동
-          },
+      actions: [
+        Icon(
+          CupertinoIcons.chat_bubble_text,
+          color: Colors.black,
         ),
-        //SizedBox(width: 10),
-        new IconButton(
-          icon: new Icon(Icons.search),
-          //highlightColor: Colors.pink,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => CommuityScreen())); //검색화면으로 넘어가게 해야함.
-          },
+        SizedBox(width: 10),
+        Icon(
+          CupertinoIcons.search,
+          color: Colors.black,
         ),
-        //SizedBox(width: 10),
+        SizedBox(width: 10),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: ClipRRect(
