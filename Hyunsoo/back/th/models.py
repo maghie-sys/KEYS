@@ -5,7 +5,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Er(models.Model):
     Er_CODE = models.CharField(max_length=8)
-    ErTh_CODE = models.CharField(max_length=8)
     # Fc_CODE = models.CharField(max_length=8)
     Er_Name = models.CharField(max_length=20)
     Er_Num = models.CharField(max_length=20)
@@ -15,14 +14,14 @@ class Er(models.Model):
 
 class Th(models.Model):
     er = models.ForeignKey(Er, on_delete=models.CASCADE)
+    Er_CODE = models.CharField(max_length=8)
     Th_CODE = models.CharField(max_length=8)
-    ErTh_CODE = models.CharField(max_length=8)
     #ThFc_CODE = models.CharField(max_length=8, primary_key=True)
     Th_Name = models.CharField(max_length=20)
     Th_Genre = models.CharField(max_length=20)
-    Th_Diff = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    Th_Fear = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    Th_Act = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    Th_Diff = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    Th_Fear = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    Th_Act = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     Th_Intro = models.TextField(max_length=200)
     #Th_pic = models.ImageField(default='/image/noimage.png', upload_to='image/th/', blank=True, null=True)
     #ThGr_CODE = models.CharField(max_length=8)
@@ -39,7 +38,7 @@ class ThGr(models.Model):
     th = models.ForeignKey(Th, on_delete=models.CASCADE,max_length=8)
     Th_CODE = models.CharField(max_length=8)
     ThGr_CODE = models.CharField(max_length=8)
-    ThGr_pt = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    ThGr_pt = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     ThGr_review = models.TextField(max_length=200)
     #ThGr_pic = models.CharField(max_length=8)
 
