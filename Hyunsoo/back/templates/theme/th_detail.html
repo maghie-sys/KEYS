@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <h2 class="border-bottom py-2"> {{ th.id }} / {{ th.Th_Name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">테마 이름 : {{ th.Th_Name }}
+                테마 장르 : {{ th.Th_Genre }}
+                테마 난이도 : {{ th.Th_Diff }}
+                테마 공포도 : {{ th.Th_Fear }}
+                테마 활동성 : {{ th.Th_Act }}
+                테마 소개 : {{ th.Th_Intro }}
+            </div>
+            <!-- 생성 시간 등록 자리
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2">
+                    {{ th.Th_Intro }}
+                </div>
+            -->
+            </div>
+        </div>
+    </div>
+
+<h5 class="border-bottom my-3 py-2">{{ th.thgr_set.count }}개의 리뷰가 있습니다.</h5>
+{% for thgr in th.thgr_set.all %}
+<div class="card my-3">
+    <div class="card-body">
+        <div class="card-text" style="white-space: pre-line;">평점 : {{ thgr.ThGr_pt }}
+            리뷰 : {{ thgr.ThGr_review }}
+        </div>
+        <div class="d-flex justify-content-end">
+            <div class="badge badge-light p-2">
+                {{ thgr.ThGr_review }}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<form action="{% url 'th:review_create' th.id %}" method="post">
+{% csrf_token %}
+<textarea name="review" id="review" rows="10"></textarea>
+<input type="submit" value="리뷰 등록">
+</form>
+
+
+</div>
+{% endblock %}
