@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Er, ErAd, Th, ThGr, ThImg, All
+from .models import Er, ErAd, Th, ThGr, ThImg
 
 
 # Register your models here.
@@ -22,4 +22,3 @@ class ThAdmin(admin.ModelAdmin):
             obj.photos.create(Th_img=afile)
 
 admin.site.register(Th, ThAdmin)
-admin.site.register(All)

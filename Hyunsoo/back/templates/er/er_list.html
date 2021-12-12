@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>매장 ID</th>
+            <th>매장 이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if er_list %}
+        {% for er in er_list %}
+        <tr>
+            <td>
+                {{ forloop.counter }}
+            </td>
+            <td>
+                <a>{{ er.id }}</a>
+            </td>
+            <td>
+                <a href="{% url 'keys:er_detail' er.id %}">{{ er.Er_Name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3"><a>Do Not Search Escape Room.</a></td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'keys:er_create' %}" class="btn btn-primary">매장 등록하기</a>
+</div>
+{% endblock %}

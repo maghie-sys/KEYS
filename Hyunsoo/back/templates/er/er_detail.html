@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <h2 class="border-bottom py-2">{{ er.Er_Name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">매장 이름 : {{ er.Er_Name }}
+                매장 전화번호 : {{ er.Er_Num }}
+            </div>
+            <!-- 생성 시간 등록 자리 -->
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2">
+                    {{ er.create_date }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5 class="border-bottom my-3 py-2">{{ er.th_set.count }}개의 테마가 있습니다.</h5>
+
+</div>
+    <div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>테마 이름</th>
+            <th>장르</th>
+            <th>난이도</th>
+            <th>공포도</th>
+            <th>활동성</th>
+            <th>소개</th>
+            <th>등록</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <form action="{% url 'keys:th_create2' er.id %}" method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% if field.errors %}
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                    {% endif %}
+                {% endfor %}
+                </div>
+                {% endif %}
+            <td><textarea name="Th_Name" id="Th_Name" cols="18" rows="1"></textarea></td>
+            <td><textarea name="Th_Genre" id="Th_Genre" cols="14" rows="1"></textarea></td>
+            <td><textarea name="Th_Diff" id="Th_Diff" cols="4" rows="1"></textarea></td>
+            <td><textarea name="Th_Fear" id="Th_Fear" cols="4" rows="1"></textarea></td>
+            <td><textarea name="Th_Act" id="Th_Act" cols="4" rows="1"></textarea></td>
+            <td><textarea name="Th_Intro" id="Th_Intro" cols="34" rows="1"></textarea></td>
+            <td><input type="submit" value="등록"></td>
+            </form>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>테마 이름</th>
+            <th>평균 평점</th>
+            <th>리뷰 개수</th>
+            <th>이미지 개수</th>
+            <th>테마 생성 시간</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for th in er.th_set.all %}
+        <tr>
+            <td> {{ forloop.counter }} </td>
+            <td>
+                <a href="{% url 'keys:th_detail' th.id %}">{{ th.Th_Name }}</a>
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                {{ th.create_date }}
+            </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+<!--
+<form action="{% url 'th:review_create' er.Th_CODE %}" method="post">
+{% csrf_token %}
+<textarea name="review" id="review" rows="10"></textarea>
+<input type="submit" value="리뷰 등록">
+</form>
+-->
+

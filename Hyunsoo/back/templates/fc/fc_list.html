@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>매장 이름</th>
+            <th>테마 이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if er_list%}
+        {% for er in er_list %}
+        <tr>
+            <td>
+                {{ forloop.counter }}
+            </td>
+            <td>
+                <a href="{% url 'th:er_detail' er.id %}">{{ th.Er_Name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3"><a>Do Not Search Er.</a></td>
+        </tr>
+        {% endif %}
+
+        {% if th_list %}
+        {% for th in th_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'th:th_detail' th.id %}">{{ th.Th_Name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3"><a>Do Not Search Theme.</a></td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <a href="{% url 'th:er_create' %}" class="btn btn-primary">매장 등록하기</a>
+    <a href="{% url 'th:theme_create' %}" class="btn btn-primary">테마 등록하기</a>
+</div>
+{% endblock %}
