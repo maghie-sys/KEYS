@@ -33,7 +33,7 @@
         </thead>
         <tbody>
         <tr>
-            <form action="{% url 'th:th_create2' er.id %}" method="post">
+            <form action="{% url 'keys:th_create2' er.id %}" method="post">
                 {% csrf_token %}
                 {% if form.errors %}
                 <div class="alert alert-danger" role="alert">
@@ -75,16 +75,16 @@
         <tr>
             <td> {{ forloop.counter }} </td>
             <td>
-                <a href="{% url 'th:th_detail' th.id %}">{{ th.Th_Name }}</a>
+                <a href="{% url 'keys:th_detail' th.id %}">{{ th.Th_Name }}</a>
             </td>
             <td>
-                0<!--<a href="{% url 'th:er_detail' er.id %}">{{ th.Th_Name }}</a> -->
+                0
             </td>
             <td>
-                0<!--<a href="{% url 'th:er_detail' er.id %}">{{ th.Th_Name }}</a> -->
+                0
             </td>
             <td>
-                0<!--<a href="{% url 'th:er_detail' er.id %}">{{ th.Th_Name }}</a> -->
+                0
             </td>
             <td>
                 {{ th.create_date }}
@@ -94,10 +94,6 @@
 
         </tbody>
     </table>
-    <!--
-    <a href="{% url 'th:er_create' %}" class="btn btn-primary">매장 등록하기</a>
-    <a href="{% url 'th:theme_create' %}" class="btn btn-primary">테마 등록하기</a>
-    -->
 </div>
 
 {% endblock %}

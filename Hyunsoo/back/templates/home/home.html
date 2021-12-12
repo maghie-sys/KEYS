@@ -12,19 +12,19 @@
         <tr>
             <td>1</td>
             <td>
-                <a href="/th/html/fc/"> 프랜차이즈 관리 </a>
+                <a href="{% url 'keys:fc_index' %}"> 프랜차이즈 관리 </a>
             </td>
         </tr>
         <tr>
             <td>2</td>
             <td>
-                <a href="{% url 'th:er_index' %}">매장 관리</a>
+                <a href="{% url 'keys:er_index' %}">매장 관리</a>
             </td>
         </tr>
         <tr>
             <td>3</td>
             <td>
-                <a href="{% url 'th:th_index' %}">테마 관리</a>
+                <a href="{% url 'keys:th_index' %}">테마 관리</a>
             </td>
         </tr>
         <tr>
@@ -41,9 +41,5 @@
         </tr>
         </tbody>
     </table>
-    <!--
-    <a href="{% url 'th:er_create' %}" class="btn btn-primary">매장 등록하기</a>
-    <a href="{% url 'th:theme_create' %}" class="btn btn-primary">테마 등록하기</a>
-    -->
 </div>
 {% endblock %}

@@ -5,6 +5,7 @@
         <thead>
         <tr class="thead-dark">
             <th>번호</th>
+            <th>매장 ID</th>
             <th>매장 이름</th>
         </tr>
         </thead>
@@ -16,7 +17,10 @@
                 {{ forloop.counter }}
             </td>
             <td>
-                <a href="{% url 'th:er_detail' er.id %}">{{ er.Er_Name }}</a>
+                <a>{{ er.id }}</a>
+            </td>
+            <td>
+                <a href="{% url 'keys:er_detail' er.id %}">{{ er.Er_Name }}</a>
             </td>
         </tr>
         {% endfor %}
@@ -28,6 +32,6 @@
         </tbody>
     </table>
 
-    <a href="{% url 'th:er_create' %}" class="btn btn-primary">매장 등록하기</a>
+    <a href="{% url 'keys:er_create' %}" class="btn btn-primary">매장 등록하기</a>
 </div>
 {% endblock %}
