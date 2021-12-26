@@ -1,15 +1,18 @@
 from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-from .models import Er, ErAd, Th, ThGr, ThImg, Fc
+from .models import Er, Th, ThGr, ThImg, Fc, ErImg, ThGrImg
 from django.db.models import Avg, Max, Min, Sum, Count
 from .serializers import home_recommand_se, show_review_se, show_theme_se, show_image_se, show_er_se
 from itertools import chain
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .forms import ThemeForm, ErForm
+from .forms import ThemeForm, ErForm, ThGrForm
 from django.core.paginator import Paginator
 import random
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
 
 @api_view(['GET'])
 def helloAPI(request):
@@ -104,17 +107,20 @@ def er_index(request):
 def er_detail(request, er_id):
     """테마 내용 출력"""
     er = Er.objects.get(id=er_id)
-    context = {'er': er }
+    erimg = ErImg.objects.filter(er=er.id)
+    context = {'er': er , 'erimg': erimg}
     return render(request, 'er/er_detail.html', context)
     #return HttpResponse("asdfasdf")
 
 # 매장 -------------------------------------
+@login_required(login_url='user:login')
 def er_create(request):
     """테마등록"""
     if request.method=='POST':
         form = ErForm(request.POST)
         if form.is_valid():
             er = form.save(commit=False)
+            er.author = request.user
             er.create_date = timezone.now()
             er.save()
             return redirect('keys:er_index')
@@ -128,47 +134,26 @@ def th_index(request):
     th_list = Th.objects.all
     #paginator = Paginator(th_list, 10)  # 페이지당 10개씩 보여주기
     #page_obj = paginator.get_page(page)
-    context = {'th_list': th_list}
+    context = {'th_list': th_list }
     return render(request, 'th/th_list.html', context)
 
 def th_detail(request, th_id):
     """테마 내용 출력"""
     th = Th.objects.get(id=th_id)
+    er= th.er
     #th = get_object_or_404(Th, pk=th_name)
-    context = {'th': th}
+    context = {'th': th , 'er': er}
     return render(request, 'th/th_detail.html', context)
 
-def theme_create(request):
+@login_required(login_url='user:login')
+def theme_create(request, er_id):
     """테마등록"""
+    er = Er.objects.get(id=er_id)
     if request.method=='POST':
         form = ThemeForm(request.POST)
         if form.is_valid():
             th = form.save(commit=False)
-            th.create_date = timezone.now()
-            th.save()
-            return redirect('th:index')
-    else:
-        form = ThemeForm()
-    context = {'form': form}
-    return render(request, 'th/th_form.html' , {'form':form})
-
-"""
-def th_create2(request, er_id):
-    er = Er.objects.get(id=er_id)
-    er.th_set.create(Th_Name=request.POST.get('Th_Name'), Th_Genre=request.POST.get('Th_Genre'),
-                     Th_Diff=request.POST.get('Th_Diff'), Th_Fear=request.POST.get('Th_Fear'),
-                     Th_Act=request.POST.get('Th_Act'), Th_Intro=request.POST.get('Th_Intro'), create_date=timezone.now())
-    #th = Th(id=er, )
-    #review = ThGr(th=th, Th_CODE=th_code, ThGr_pt=0, ThGr_review=request.POST.get('review'))
-    #review.save()
-    return redirect('th:er_detail', er_id = er.id)
-"""
-def th_create2(request, er_id):
-    er = Er.objects.get(id=er_id)
-    if request.method == "POST":
-        form = ThemeForm(request.POST)
-        if form.is_valid():
-            th = form.save(commit=False)
+            th.author = request.user
             th.create_date = timezone.now()
             th.er = er
             th.save()
@@ -176,14 +161,132 @@ def th_create2(request, er_id):
     else:
         form = ThemeForm()
     context = {'er': er, 'form': form}
-    return render(request, 'er/er_detail.html', context)
+    return render(request, 'th/th_form.html', context)
 
+def thgr_detail(request, th_id):
+    """테마 내용 출력"""
+    #th = Th.objects.get(id=th_id)
+    th = Th.objects.get(id=th_id)
+    avg = ThGr.objects.filter(th=th_id).aggregate(평균평점=Avg('ThGr_pt'))
+    context = {'th': th , 'avg': avg }
+    return render(request, 'thgr/thgr_detail.html', context)
 
+@login_required(login_url='user:login')
 def review_create(request, th_id):
     th = Th.objects.get(id=th_id)
-    th.thgr_set.create(ThGr_pt=0, ThGr_review=request.POST.get('review'), create_date=timezone.now())
-    #review = ThGr(th=th, Th_CODE=th_code, ThGr_pt=0, ThGr_review=request.POST.get('review'))
-    #review.save()
-    return redirect('keys:detail', th_id=th.id)
+    if request.method == "POST":
+        form = ThGrForm(request.POST)
+        if form.is_valid():
+            thgr = form.save(commit=False)
+            thgr.author = request.user
+            thgr.create_date = timezone.now()
+            thgr.th = th
+            thgr.save()
+            return redirect('keys:thgr_detail', th_id=th.id)
+    else:
+        form = ThGrForm()
+    context = {'th': th, 'form': form}
+    return render(request, 'thgr/thgr_form.html', context)
 
+@login_required(login_url='user:login')
+def erimg_detail(request, er_id):
+    er = Er.objects.get(id=er_id)
+    erimg= ErImg.objects.filter(er=er.id)
+    context = {'er': er}
+    return render(request, 'er/er_img.html', context)
 
+@login_required(login_url='user:login')
+def thimg_detail(request, th_id):
+    th = Th.objects.get(id=th_id)
+    er = th.er
+    thimg= ThImg.objects.filter(th=th.id)
+    context = {'th': th, 'er': er}
+    return render(request, 'th/th_img.html', context)
+
+@login_required(login_url='user:login')
+def er_modify(request, er_id):
+    er = Er.objects.get(id=er_id)
+    if request.user != er.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('keys:er_detail', er_id=er.id)
+
+    if request.method == "POST":
+        form = ErForm(request.POST, instance=er)
+        if form.is_valid():
+            er = form.save(commit=False)
+            er.modify_date = timezone.now()  # 수정일시 저장
+            er.save()
+            return redirect('keys:er_detail', er_id=er.id)
+    else:
+        form = ErForm(instance=er)
+    context = {'form': form}
+    return render(request, 'er/er_form.html', context)
+
+@login_required(login_url='user:login')
+def er_delete(request, er_id):
+    er=Er.objects.get(id=er_id)
+    if request.user != er.author:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('keys:er_detail', er_id=er.id)
+    er.delete()
+    return redirect('keys:er_index')
+
+@login_required(login_url='user:login')
+def th_modify(request, th_id):
+    th = Th.objects.get(id=th_id)
+    er=th.er
+    if request.user != th.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('keys:th_detail', th_id=th.id)
+
+    if request.method == "POST":
+        form = ThemeForm(request.POST, instance=th)
+        if form.is_valid():
+            th = form.save(commit=False)
+            th.modify_date = timezone.now()  # 수정일시 저장
+            th.save()
+            return redirect('keys:th_detail', th_id=th.id)
+    else:
+        form = ThemeForm(instance=th)
+    context = {'form': form}
+    return render(request, 'th/th_form.html', context)
+
+@login_required(login_url='user:login')
+def th_delete(request, th_id):
+    th=Th.objects.get(id=th_id)
+    er=th.er
+    if request.user != th.author:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('keys:th_detail', th_id=th.id)
+    th.delete()
+    return redirect('keys:er_detail', er_id=er.id)
+
+@login_required(login_url='user:login')
+def thgr_modify(request, thgr_id):
+    thgr = ThGr.objects.get(id=thgr_id)
+    th=thgr.th
+    if request.user != thgr.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('keys:thgr_detail', th_id=th.id)
+
+    if request.method == "POST":
+        form = ThGrForm(request.POST, instance=thgr)
+        if form.is_valid():
+            thgr = form.save(commit=False)
+            thgr.modify_date = timezone.now()  # 수정일시 저장
+            thgr.save()
+            return redirect('keys:thgr_detail', th_id=th.id)
+    else:
+        form = ThGrForm(instance=th)
+    context = {'form': form}
+    return render(request, 'thgr/thgr_form.html', context)
+
+@login_required(login_url='user:login')
+def thgr_delete(request, thgr_id):
+    thgr=ThGr.objects.get(id=thgr_id)
+    th=thgr.th
+    if request.user != thgr.author:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('keys:thgr_detail', th_id=th.id)
+    thgr.delete()
+    return redirect('keys:thgr_detail', th_id=th.id)

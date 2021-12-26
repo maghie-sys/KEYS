@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Er, ErAd, Th, ThGr, ThImg
+from .models import Er, Th, ThGr, ThImg
 from django.db.models import Avg, Max, Min, Sum, Count
 #------------------------------------------------------------
 class show_er_se(serializers.ModelSerializer):
@@ -8,7 +8,13 @@ class show_er_se(serializers.ModelSerializer):
         fields = (
             'id',
             'Er_Name',
-            'Er_Num'
+            'Er_Num',
+            'ErAd_Num',
+            'ErAd_Add1',
+            'ErAd_Add2',
+            'ErAd_Add3',
+            'ErAd_Add4',
+            'ErAd_Add5'
         )
 
 #------------------------------------------------------------

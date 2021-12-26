@@ -2,7 +2,7 @@ import os
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
-
+"""
 class User(models.Model):
     User_CODE = models.CharField(max_length=8)
     ID = models.CharField(max_length=8)
@@ -16,7 +16,7 @@ class User(models.Model):
     Birth_Day = models.CharField(max_length=8)
 
 
-"""
+
 class Er(models.Model):
     Er_CODE = models.CharField(max_length=8)
     ErTh_CODE = models.CharField(max_length=8)
