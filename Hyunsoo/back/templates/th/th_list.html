@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
+    <a>https://gus8154.pythonanywhere.com/keys/api/theme/all</a>
+    <br><br>
     <table class="table">
         <thead>
         <tr class="thead-dark">
@@ -11,8 +13,6 @@
             <th>테마 이름</th>
             <th>평균 평점</th>
             <th>리뷰 개수</th>
-            <th>이미지 개수</th>
-            <th>생성 시간</th>
         </tr>
         </thead>
         <tbody>
@@ -21,16 +21,22 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>
-                <a>0</a>
+                <a>{{ th.er.id }}</a>
             </td>
             <td>
-                <a>0</a>
+                <a href="{% url 'keys:er_detail' th.er.id %}">{{ th.er.Er_Name }}</a>
             </td>
             <td>
-                <a href="{% url 'keys:th_detail' th.id %}">{{ th.id }}</a>
+                <a>{{ th.id }}</a>
             </td>
             <td>
                 <a href="{% url 'keys:th_detail' th.id %}">{{ th.Th_Name }}</a>
+            </td>
+            <td>
+                <a>0</a>
+            </td>
+            <td>
+                <a href="{% url 'keys:thgr_detail' th.id %}">{{ th.thgr_set.count }}</a>
             </td>
         </tr>
         {% endfor %}
@@ -42,6 +48,6 @@
         </tbody>
     </table>
 
-    <a href="{% url 'keys:theme_create' %}" class="btn btn-primary">테마 등록하기</a>
+
 </div>
 {% endblock %}

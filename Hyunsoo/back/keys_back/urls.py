@@ -22,11 +22,17 @@ from django.conf.urls import url
 from rest_framework.permissions import AllowAny
 #from drf_yasg2.views import get_schema_view
 #from drf_yasg2 import openapi
-
+from keys import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('keys/', include('keys.urls')),
-    path('rest-auth/', include('rest_auth.urls'))
+    path('rest-auth/', include('rest_auth.urls')),
+    path('keys/user/', include('user.urls')),
+    #path('', views.home, name='home'), # '/'에 해당되는 path
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

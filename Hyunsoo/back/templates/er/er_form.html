@@ -19,16 +19,57 @@
         <!-- 오류표시 End -->
         <div class="form-group">
             <label for="Er_Name">매장 이름</label>
-            <input type="text" class="form-control" name="Er_Name" id="Er_Name"
-                   value="{{ form.subject.value|default_if_none:'' }}">
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Er_Name"
+                      id="Er_Name" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
         </div>
         <div class="form-group">
             <label for="Er_Num">매장 번호</label>
-            <textarea class="form-control" name="Er_Num"
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Er_Num"
                       id="Er_Num" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ErAd_Num">우편 번호</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="ErAd_Num"
+                      id="ErAd_Num" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ErAd_Add1">매장 주소 (도)</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="ErAd_Add1"
+                      id="ErAd_Add1" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ErAd_Add2">매장 주소 (시)</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="ErAd_Add2"
+                      id="ErAd_Add2" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ErAd_Add3">매장 주소 (구)</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="ErAd_Add3"
+                      id="ErAd_Add3" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ErAd_Add4">매장 주소 (동)</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="ErAd_Add4"
+                      id="ErAd_Add4" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ErAd_Add5">매장 주소 (나머지)</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="ErAd_Add5"
+                      id="ErAd_Add5" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
 </div>
 {% endblock %}
+
+
+

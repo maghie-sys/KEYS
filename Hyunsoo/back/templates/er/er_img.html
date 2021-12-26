@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <h2 class="border-bottom py-2">매장 ID : <a href="{% url 'keys:er_detail' er.id %}"> {{er.id}} </a> / 매장 이름 : {{ er.Er_Name }} / 매장 전체 이미지 보기</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">매장 ID : {{ er.id }}
+                매장 이름 : {{ er.Er_Name }}
+                매장 전화번호 : {{ er.Er_Num }}
+                매장 우편번호 : {{ er.ErAd_Num }}
+                매장 주소 : {% if er.ErAd_Add1 != None %} {{ er.ErAd_Add1 }}{%endif%} {{ er.ErAd_Add2 }} {{ er.ErAd_Add3 }} {{ er.ErAd_Add4 }} {{ er.ErAd_Add5 }}
+                작성자 : {{er.author.username}}
+
+                API 주소 : https://gus8154.pythonanywhere.com/keys/api/escape/{{er.id}}/erimg_all
+            </div>
+            <!-- 생성 시간 등록 자리 -->
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2">
+                    {{ er.create_date }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="border-bottom my-3 py-2">{{ er.erimg_set.count }}개의 이미지가 있습니다.</h5>
+
+    {% for erimg in er.erimg_set.all %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">이미지 ID : {{ erimg.id }}
+                <a href="{{erimg.Er_img.url}}"> {{erimg.Er_img}}</a>
+                <fieldset class="module">
+                <a>Upload Photo</a>
+                <input name="Er_Img" type="file" multiple />
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

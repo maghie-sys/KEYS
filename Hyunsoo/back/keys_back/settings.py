@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'keys',
+    'user',
     'rest_framework.authtoken',
     'rest_auth',
-    'user',
+
     #'drf_yasg2',
 
 ]
@@ -133,6 +134,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -157,3 +163,8 @@ TEMPLATES = [
         },
     },
 ]
+
+#로그인 이후 이동하는 URL
+LOGIN_REDIRECT_URL='/keys/html/home'
+#로그아웃 이후 이동하는 URL
+LOGOUT_REDIRECT_URL='/keys/html/home'

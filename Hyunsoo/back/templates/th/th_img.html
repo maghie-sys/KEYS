@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <h2 class="border-bottom py-2"> 매장 이름 : <a href="{% url 'keys:er_detail' er.id %}"> {{ er.Er_Name }} </a> / 테마 이름 : <a href="{% url 'keys:th_detail' th.id%}">{{ th.Th_Name }} </a>/ 테마 전체 이미지 보기</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">테마 ID : {{th.id}}
+                테마 이름 : {{ th.Th_Name }}
+                테마 장르 : {{ th.Th_Genre }}
+                테마 난이도 : {{ th.Th_Diff }}
+                테마 공포도 : {{ th.Th_Fear }}
+                테마 활동성 : {{ th.Th_Act }}
+                테마 소개 : {{ th.Th_Intro }}
+
+                리뷰 : {{ th.thgr_set.count }}개의 리뷰가 있습니다. <a href="{% url 'keys:thgr_detail' th.id %}">전체 리뷰 보기</a>
+
+                API 주소 : https://gus8154.pythonanywhere.com/keys/api/theme/{{ th.id }}/thimg_all
+            </div>
+            <!-- 생성 시간 등록 자리
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2">
+                    {{ th.Th_Intro }}
+                </div>
+            -->
+            </div>
+        </div>
+
+    <h5 class="border-bottom my-3 py-2">{{ th.thimg_set.count }}개의 이미지가 있습니다.</h5>
+
+    {% for thimg in th.thimg_set.all %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">이미지 ID : {{ thimg.id }}
+                <a href="{{thimg.Th_img.url}}"> {{thimg.Th_img}}</a>
+                <fieldset class="module">
+                <a>Upload Photo</a>
+                <input name="Er_Img" type="file" multiple />
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

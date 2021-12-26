@@ -1,14 +1,15 @@
 from django.contrib import admin
-from .models import Er, ErAd, Th, ThGr, ThImg
+from .models import Er, Th, ThGr, ThImg, ErImg, ThGrImg
 
 
 # Register your models here.
 
 admin.site.register(Er)
-admin.site.register(ErAd)
 admin.site.register(Th)
 admin.site.register(ThGr)
 admin.site.register(ThImg)
+admin.site.register(ErImg)
+admin.site.register(ThGrImg)
 
 """
 class ThPicInline(admin.TabularInline):

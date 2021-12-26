@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
+    <a>https://gus8154.pythonanywhere.com/keys/api/escape/all</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'keys:er_create' %}" class="btn btn-primary">매장 등록하기</a>
+    <br><br>
     <table class="table">
         <thead>
         <tr class="thead-dark">
             <th>번호</th>
             <th>매장 ID</th>
             <th>매장 이름</th>
+            <th>매장 주소</th>
+            <th>테마 개수</th>
+            <th>작성자</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +31,15 @@
             <td>
                 <a href="{% url 'keys:er_detail' er.id %}">{{ er.Er_Name }}</a>
             </td>
+            <td>
+                <a>{% if er.ErAd_Add1 != None %} {{ er.ErAd_Add1 }} {%else%}{%endif%} {{ er.ErAd_Add2 }} {{ er.ErAd_Add3 }} {{ er.ErAd_Add4 }} {{ er.ErAd_Add5 }}</a>
+            </td>
+            <td>
+                <a>{{ er.th_set.count }}</a>
+            </td>
+            <td>
+                <a>{{ er.author.username }}</a>
+            </td>
         </tr>
         {% endfor %}
         {% else %}
@@ -32,6 +50,8 @@
         </tbody>
     </table>
 
-    <a href="{% url 'keys:er_create' %}" class="btn btn-primary">매장 등록하기</a>
+
+
+
 </div>
 {% endblock %}
