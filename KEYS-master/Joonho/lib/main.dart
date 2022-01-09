@@ -2,32 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/screen/community_screen.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
-import 'package:flutter_application_1/screen/myinfo_screen.dart';
 import 'package:flutter_application_1/screen/search_screen.dart';
-import 'package:flutter_application_1/screen/signin/components/mypage_header.dart';
-import 'package:flutter_application_1/screen/signin/sign_up.dart';
 import 'package:flutter_application_1/widget/bottom_bar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter_application_1/screen/signin/signin_screen.dart';
-
-import 'screen/signin/signin_screen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
-}
-
-// ignore: non_constant_identifier_names
-void RestApi_Get() async {
-  http.Response response = await http.get(
-      Uri.parse('https://gus8154.pythonanywhere.com/th/hello'),
-      headers: {"Accept": "application/json"});
-  Map<String, dynamic> responseBody = jsonDecode(response.body);
-
-  print(response.body); // 결과 출력 ==> {"restapi" : "get" }
-  //print(responseBody["Th_CODE"]); // 결과 출력 ==> get
 }
 
 //탭 바 설정 부분. 바 아이콘 개수 설정 및
@@ -44,7 +25,7 @@ class _MyAppState extends State<MyApp> {
           //accentColor: Colors.white,
         ),
         home: DefaultTabController(
-            length: 5,
+            length: 4,
             child: Scaffold(
               appBar: _buildKeysAppBar(),
               body: TabBarView(
@@ -53,8 +34,11 @@ class _MyAppState extends State<MyApp> {
                   HomeScreen(),
                   SearchScreen(),
                   CommuityScreen(),
-                  MyPageHeader(),
-                  MyinfoScreen(),
+                  Container(
+                    child: Center(
+                      child: Text('4'),
+                    ),
+                  ),
                 ],
               ),
               bottomNavigationBar: Bottom(),
@@ -99,16 +83,7 @@ class _MyAppState extends State<MyApp> {
           },
         ),
         //SizedBox(width: 10),
-
-        new IconButton(
-          icon: new Icon(Icons.people_alt_rounded),
-          //highlightColor: Colors.pink,
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MyPageHeader()));
-          },
-        ),
-/*        Padding(
+        Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5.0),
@@ -116,7 +91,7 @@ class _MyAppState extends State<MyApp> {
               image: AssetImage("images/choon.png"),
             ),
           ),
-        )*/
+        )
       ],
     );
   }
