@@ -1,4 +1,4 @@
-name: flutter_application_1
+name: keys_v2
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -18,14 +18,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  carousel_slider:
-  path_provider:
-  http: 
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,17 +46,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/keys_logo.png
-    - images/exitout_image1.png
-    - images/exitout_image2.png
-    - images/exitout_image3.png
-    - images/exitout_image4.png
-    - images/theme_detector.png    
-    - images/theme_smile.png
-    - images/theme_miro.png
-    - images/theme_horro.png
-    - images/theme_impressive.png
-    - images/choon.png
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
