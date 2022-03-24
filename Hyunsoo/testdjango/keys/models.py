@@ -12,8 +12,8 @@ class Er(models.Model):
 
 class Th(models.Model):
     er = models.ForeignKey(Er, on_delete=models.CASCADE)
-    Th_Name = models.CharField(max_length=20, null=True, blank=True)
-    Th_Genre = models.CharField(max_length=20, null=True, blank=True)
+    Th_Name = models.CharField(max_length=20, null=False)
+    Th_Genre = models.CharField(max_length=20)
     Th_Nop = models.CharField(max_length=10, null=True, blank=True)
     Th_Time = models.CharField(max_length=5, null=True, blank=True)
     Th_Diff = models.CharField(max_length=10, null=True, blank=True)
