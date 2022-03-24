@@ -8,4 +8,6 @@ urlpatterns = [
     path("api/hello/", helloAPI),
     path("api/home/<int:id>/",Random_Recommand_Theme),
 
+
+    path("thimg/<int:id>", views.image, name='image'),
 ]
