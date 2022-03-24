@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/src/rendering/box.dart';
 
 class MyinfoScreen extends StatelessWidget {
   @override
@@ -68,8 +69,18 @@ class MyinfoScreen extends StatelessWidget {
               thickness: 5.0,
             ),
           ),
+          ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              Card(child: ListTile( title: Text('첫번째 리스트 타이틀'),trailing: Icon(Icons.more_vert),onTap: () {},),),
+              Card(child: ListTile(title: Text('두번째 리스트 타이틀'),subtitle: _act != 2 ? Text('ㅇㅇㅇ') : null, enabled: _act == 2, onTap:(){},),),
+            ],
+          )
         ],
       ),
     ));
   }
+}
+
+class _act {
 }
