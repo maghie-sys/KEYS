@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keys_v2/Screens/community_screen.dart';
+import 'package:keys_v2/Screens/home_screen.dart';
 import 'package:keys_v2/Screens/likes_screen.dart';
 import 'package:keys_v2/Screens/location_screen.dart';
 import 'package:keys_v2/Screens/myinfo_screen.dart';
 import 'package:keys_v2/botton_nav.dart';
-
-import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static String routeName = "/main_screen";
