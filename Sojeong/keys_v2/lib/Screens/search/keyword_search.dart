@@ -1,3 +1,5 @@
+//여기까지 찾아오셨군요. 그러나 여기도 버려진 모듈입니다.
+
 import 'package:flutter/material.dart';
 
 class KeywordSearch extends SearchDelegate {

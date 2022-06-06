@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart';
+//축하합니다. 진정한 search 페이지를 찾으셨습니다.
 
-class Building {
+import 'package:flutter/material.dart';
+import 'package:keys_v2/Screens/detail_screen.dart';
+
+class Theme {
   String id;
   String name;
-  String place;
+  String poster;
 
-  Building({this.id, this.name, this.place});
+  Theme({this.id, this.name, this.poster});
 }
 
 class SearchList extends StatefulWidget {
@@ -17,17 +20,17 @@ class SearchList extends StatefulWidget {
 
 class _SearchListState extends State<SearchList> {
   Widget appBarTitle = Text(
-    "My Properties",
-    style: TextStyle(color: Colors.white),
+    "검색하기",
+    style: TextStyle(color: Colors.brown),
   );
   Icon actionIcon = Icon(
     Icons.search,
-    color: Colors.orange,
+    color: Colors.brown,
   );
   final key = GlobalKey<ScaffoldState>();
   final TextEditingController _searchQuery = TextEditingController();
-  List<Building> _list;
-  List<Building> _searchList = List();
+  List<Theme> _list;
+  List<Theme> _searchList = List();
 
   bool _IsSearching;
   String _searchText = "";
@@ -58,19 +61,19 @@ class _SearchListState extends State<SearchList> {
   void init() {
     _list = List();
     _list.add(
-      Building(id:"1", name: "A 1", place: "assets/images/01.jpg"),
+      Theme(id:"1", name: "마법소녀", poster: "assets/images/01.jpg"),
     );
     _list.add(
-      Building(id:"2", name: "A 2", place: "assets/images/02.jpg"),
+      Theme(id:"2", name: "심판", poster: "assets/images/02.jpg"),
     );
     _list.add(
-      Building(id:"3",name: "B 3", place: "assets/images/03.jpg"),
+      Theme(id:"3",name: "커넥트", poster: "assets/images/03.jpg"),
     );
     _list.add(
-      Building(id:"4",name: "B 4", place: "assets/images/04.jpg"),
+      Theme(id:"4",name: "안녕하세요? 무엇을 도와드릴까요?", poster: "assets/images/04.jpg"),
     );
     _list.add(
-      Building(id:"5",name: "C 5", place: "assets/images/05.jpg"),
+      Theme(id:"5",name: "야근", poster: "assets/images/05.jpg"),
     );
     _searchList = _list;
   }
@@ -102,11 +105,11 @@ class _SearchListState extends State<SearchList> {
     );
   }
 
-  List<Building> _buildList() {
+  List<Theme> _buildList() {
     return _list; //_list.map((contact) =>  Uiitem(contact)).toList();
   }
 
-  List<Building> _buildSearchList() {
+  List<Theme> _buildSearchList() {
     if (_searchText.isEmpty) {
       return _searchList =
           _list; //_list.map((contact) =>  Uiitem(contact)).toList();
@@ -121,7 +124,7 @@ class _SearchListState extends State<SearchList> {
       _searchList = _list
           .where((element) =>
       element.name.toLowerCase().contains(_searchText.toLowerCase()) ||
-          element.place.toLowerCase().contains(_searchText.toLowerCase()))
+          element.poster.toLowerCase().contains(_searchText.toLowerCase()))
           .toList();
       print('${_searchList.length}');
       return _searchList; //_searchList.map((contact) =>  Uiitem(contact)).toList();
@@ -132,7 +135,7 @@ class _SearchListState extends State<SearchList> {
     return AppBar(
         centerTitle: true,
         title: appBarTitle,
-        iconTheme: IconThemeData(color: Colors.orange),
+        iconTheme: IconThemeData(color: Colors.brown),
         backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
@@ -142,16 +145,16 @@ class _SearchListState extends State<SearchList> {
                 if (this.actionIcon.icon == Icons.search) {
                   this.actionIcon = Icon(
                     Icons.close,
-                    color: Colors.orange,
+                    color: Colors.brown,
                   );
                   this.appBarTitle = TextField(
                     controller: _searchQuery,
                     style: TextStyle(
-                      color: Colors.orange,
+                      color: Colors.brown,
                     ),
                     decoration: InputDecoration(
-                        hintText: "Search here..",
-                        hintStyle: TextStyle(color: Colors.white)),
+                        hintText: "검색어를 입력하세요",
+                        hintStyle: TextStyle(color: Colors.grey)),
                   );
                   _handleSearchStart();
                 } else {
@@ -173,7 +176,7 @@ class _SearchListState extends State<SearchList> {
     setState(() {
       this.actionIcon = Icon(
         Icons.search,
-        color: Colors.orange,
+        color: Colors.brown,
       );
       this.appBarTitle = Text(
         "검색하기",
@@ -186,8 +189,8 @@ class _SearchListState extends State<SearchList> {
 }
 
 class Uiitem extends StatelessWidget {
-  final Building building;
-  Uiitem(this.building);
+  final Theme theme;
+  Uiitem(this.theme);
 
   Widget build(BuildContext context) {
     return Card(
@@ -195,9 +198,15 @@ class Uiitem extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(5, 5, 5, 7),
       elevation: 2.0,
       child: InkWell(
-        splashColor: Colors.orange,
+        splashColor: Colors.brown,
         onTap: () {
-          print(building.id);
+          //print(theme.id);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DetailScreen(
+                          posterUrl: theme.poster)));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,17 +224,17 @@ class Uiitem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image(
-                    image: AssetImage(building.place),
+                    image: AssetImage(theme.poster),
                     fit: BoxFit.cover,
 
                   ),
                   Text(
-                    this.building.name,
+                    this.theme.name,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+                        fontSize: 14.0,
                     ),
-                    maxLines: 1,
+                    maxLines: 2,
                   ),
                   SizedBox(height: 0.0),
 

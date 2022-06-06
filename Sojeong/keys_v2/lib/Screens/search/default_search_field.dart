@@ -1,3 +1,5 @@
+//아쉽게 되었습니다만 이곳은 버려진 search 모듈입니다.
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

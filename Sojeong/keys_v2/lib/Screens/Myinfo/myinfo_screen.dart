@@ -24,9 +24,9 @@ class MyinfoScreen extends StatelessWidget{
         onPressed: () =>Navigator.pop(context),
       ),
 
-      title: const Text('내 정보', style: TextStyle(fontWeight: FontWeight.bold,color: Colors.brown),),
+      title: const Text('My Keys', style: TextStyle(fontWeight: FontWeight.bold,color: Colors.brown),),
         actions: [
-          IconButton(icon: const Icon(Icons.settings), color: Colors.brown, onPressed: (){}),
+          //IconButton(icon: const Icon(Icons.settings), color: Colors.brown, onPressed: (){}),
         ],
     bottom: const PreferredSize(
         preferredSize: Size.fromHeight(0.5),

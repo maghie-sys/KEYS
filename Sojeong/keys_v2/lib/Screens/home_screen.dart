@@ -230,48 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 30.0,
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "개인정보 처리 방침 영역_ home_screen.dart에 있어요",
-                        style: TextStyle(color: Colors.brown),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 30.0,
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "사업자 정보 영역_ home_screen.dart에 있어요",
-                        style: TextStyle(color: Colors.brown),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-//        Text("개인정보 취급 방침 영역", style: TextStyle(color: Colors.brown),),
-//        Text("사업자정보 영역", style: TextStyle(color: Colors.brown),),
-        ],
+          ],
       ),
     );
   }

@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   List pages = [
     HomeScreen(),
-    LocationScreen(),
+    //LocationScreen(),
     LikesScreen(),
     CommunityScreen(),
     SignInScreen(),
@@ -59,11 +59,11 @@ class _MainScreenState extends State<MainScreen> {
                 })
           ]),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting, //버튼 누를때마다 하단 내비 배경색 바뀜
+        //type: BottomNavigationBarType.shifting, //버튼 누를때마다 하단 내비 배경색 바뀜
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white, //선택된 아이콘 색은 흰색
-        unselectedItemColor: Colors.black, //선택되지 않은 아이콘 색은 검은색
-        selectedFontSize: 12.0,
+        selectedItemColor: Colors.brown, //선택된 아이콘 색은 흰색
+        unselectedItemColor: Colors.black12, //선택되지 않은 아이콘 색은 검은색
+        selectedFontSize: 14.0,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
