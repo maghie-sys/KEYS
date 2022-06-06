@@ -4,7 +4,10 @@ import 'package:keys_v2/Screens/community_screen.dart';
 import 'package:keys_v2/Screens/home_screen.dart';
 import 'package:keys_v2/Screens/likes_screen.dart';
 import 'package:keys_v2/Screens/location_screen.dart';
-import 'package:keys_v2/Screens/myinfo_screen.dart';
+import 'package:keys_v2/Screens/Myinfo/myinfo_screen.dart';
+import 'package:keys_v2/Screens/search/search_screen.dart';
+import 'package:keys_v2/Screens/search/search_screen_demo.dart';
+import 'package:keys_v2/Screens/signin/signin_screen.dart';
 import 'package:keys_v2/botton_nav.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
     LocationScreen(),
     LikesScreen(),
     CommunityScreen(),
-    MyinfoScreen(),
+    SignInScreen(),
   ];
 
   @override
@@ -37,13 +40,23 @@ class _MainScreenState extends State<MainScreen> {
           ),
           backgroundColor: Colors.white,
           actions: [
-            IconButton(icon: Icon(Icons.search_outlined),onPressed: (){},color: Colors.brown,),
+            IconButton(icon: Icon(Icons.search_outlined),onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SearchList()));
+            },color: Colors.brown,),
             TextButton(
                 child: Text(
                   "내정보",
                   style: TextStyle(color: Colors.brown),
                 ),
-                onPressed: () {})
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyinfoScreen()));
+                })
           ]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting, //버튼 누를때마다 하단 내비 배경색 바뀜

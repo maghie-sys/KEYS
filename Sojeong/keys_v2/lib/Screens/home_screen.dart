@@ -219,7 +219,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => DetailScreen(
-                                        posterUrl: posters3[index])));
+                                        posterUrl: posters3[index]))
+                            );
                           },
                         );
                       },

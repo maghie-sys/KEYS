@@ -15,6 +15,13 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.brown,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.brown,),
+          ),
+          onPressed: () =>Navigator.pop(context),
+        ),
         actions: [
           Icon(
             Icons.search_outlined,
@@ -59,6 +66,7 @@ class DetailScreen extends StatelessWidget {
                 const SizedBox(height: 6,),
                 Text("제한시간"),
                 const SizedBox(height: 6,),]
+
                 ),
               ],
             ),
