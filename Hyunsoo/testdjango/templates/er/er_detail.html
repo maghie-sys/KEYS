@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <!-- 사용자오류 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <h2 class="border-bottom py-2"> 상세 매장 정보</h2>
+    <h2 class="border-bottom py-2">매장 ID : {{er.id}} / 매장 이름 : {{ er.Er_Name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">매장 ID : {{ er.id }}
+                매장 브랜드 : {{ er.Er_Brand }}
+                매장 이름 : {{ er.Er_Name }}
+                매장 전화번호 : {{ er.Er_Num }}
+                매장 주소 : {{ er.Er_Add}}
+                예약 페이지 : {{ er.Er_Reservation }}
+                작성자 : {{er.author.username}}
+
+                {{ er.th_set.count }}개의 테마가 있습니다.
+
+                생성일자 : {{ er.create_date }}
+                수정일자 : {{ er.modify_date }}
+            </div>
+            <!-- 생성 시간 등록 자리 -->
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2">
+                    {% if request.user == er.author %}
+                    <a href="{% url 'keys:er_modify' er.id %}" class="btn btn-sm btn-outline-secondary">수정</a>  <a href="#" class="delete btn btn-sm btn-outline-secondary" data-uri="{% url 'keys:er_delete' er.id  %}">삭제</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <a href="{% url 'keys:theme_create' er.id %}" class="btn btn-primary">테마 등록하기</a>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>테마 ID</th>
+            <th>테마 이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for th in er.th_set.all %}
+        <tr>
+            <td> {{ forloop.counter }} </td>
+            <td>
+                <a>{{th.id}}</a>
+            </td>
+            <td>
+                <a href="{% url 'keys:th_detail' th.id %}">{{ th.Th_Name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".delete").on('click', function() {
+        if(confirm("매장 정보입니다. 정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+});
+</script>
+{% endblock %}
