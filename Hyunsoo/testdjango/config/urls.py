@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from keys import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('keys/', include('keys.urls')),
-]
+    path('user/', include('user.urls')),
+    #path('', views.index, name='index'),  # '/' 에 해당되는 path
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">테마 등록</h5>
+    <form method="post" class="post-form my-3" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="form-group">
+            <label for="Th_Name">테마 이름</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Th_Name"
+                      id="Th_Name" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Th_Genre">장르</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Th_Genre"
+                      id="Th_Genre" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Th_Diff">난이도</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Th_Diff"
+                      id="Th_Diff" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Th_Nop">인원</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Th_Nop"
+                      id="Th_Nop" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Th_Time">제한 시간</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Th_Time"
+                      id="Th_Time" rows="1">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Th_Intro">소개</label>
+            <textarea {%if not user.is_authenticated %} disabled {% endif %}
+                      class="form-control" name="Th_Intro"
+                      id="Th_Intro" rows="3">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div>
+        <label for="Th_Img1">테마 포스터  </label>
+        <input type="file" {%if not user.is_authenticated %} disabled {% endif %}
+          name="Th_Img1" id="Th_Img1" rows="1">
+        </input>
+        </div>
+        <button type="submit" class="btn btn-primary">저장하기</button>
+
+    </form>
+</div>
+
+
+
+{% endblock %}

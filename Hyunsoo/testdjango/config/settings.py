@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'user.apps.UserConfig',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -149,3 +150,8 @@ TEMPLATES = [
         },
     },
 ]
+
+#로그인 이후 이동하는 URL
+LOGIN_REDIRECT_URL='/keys/html/home'
+#로그아웃 이후 이동하는 URL
+LOGOUT_REDIRECT_URL='/keys/html/home'
