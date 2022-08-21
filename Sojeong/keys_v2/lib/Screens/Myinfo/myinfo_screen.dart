@@ -13,7 +13,7 @@ class MyinfoScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
       automaticallyImplyLeading: false,

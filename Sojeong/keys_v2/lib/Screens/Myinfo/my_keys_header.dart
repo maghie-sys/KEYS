@@ -59,16 +59,8 @@ class MyKeysHeader extends StatelessWidget{
                 child: Image.network('https://placeimg.com/200/100/people', fit: BoxFit.cover),
               ),
             ),
-            Positioned(bottom: 0, right: 0, child: Container(
-              width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.grey[100]),
-    child: Icon(
-    Icons.camera_alt_outlined, size: 15,color: Colors.black,
-                ),
-            ),)
+
+
           ],
         ),
         SizedBox(width: 16,),
@@ -115,7 +107,7 @@ class MyKeysHeader extends StatelessWidget{
             border: Border.all(color: Color(0xFFD4D5DD), width: 0.5)),
       child: Icon(
       iconData,
-        color: Colors.orange,
+        color: Colors.brown,
           ),
         ),
         SizedBox(height: 10,),

@@ -201,12 +201,12 @@ class Uiitem extends StatelessWidget {
         splashColor: Colors.brown,
         onTap: () {
           //print(theme.id);
-          Navigator.push(
+     /*     Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
                       DetailScreen(
-                          posterUrl: theme.poster)));
+                          posterUrl: theme.poster)));*/
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
