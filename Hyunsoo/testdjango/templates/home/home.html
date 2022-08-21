@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>
+                <a href="{% url 'keys:er_index' %}">매장 관리</a>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>
+                <a href="{% url 'keys:th_index' %}">테마 관리</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
