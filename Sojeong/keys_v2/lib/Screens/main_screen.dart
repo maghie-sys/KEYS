@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           title: Text(
             "KEYS",
             style: TextStyle(
-                color: Colors.brown, fontWeight: FontWeight.bold, fontSize: 24),
+                color: Colors.brown, fontWeight: FontWeight.bold, fontSize: 30),
           ),
           backgroundColor: Colors.white,
           actions: [

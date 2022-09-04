@@ -79,14 +79,14 @@ class _PolicyMenu extends State<PolicyMenu> {
           border: Border.all(
               width: 1,
               color:
-              isActive ? const Color(0xffe53154) : const Color(0xffcccccc)),
+              isActive ? Colors.brown : const Color(0xffcccccc)),
           color: const Color(0xfffafafa),
         ),
         child: Center(
           child: Text(
             menu,
             style: TextStyle(
-              color: isActive ? const Color(0xffe53154) : Colors.black,
+              color: isActive ? Colors.brown : Colors.black,
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
             ),
           ),

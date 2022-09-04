@@ -7,7 +7,7 @@ import 'package:keys_v2/home/poster.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Recommand>> fetchRecommand() async {
-  final response = await http.get(Uri.parse('https://gus8154.pythonanywhere.com/keys/api/home/15/'));
+  final response = await http.get(Uri.parse('https://gus8154.pythonanywhere.com/keys/api/home/10/'));
   if (response.statusCode == 200) {
     List list = jsonDecode(response.body);
     var recommandList = list.map((element) => Recommand.fromJson(element)).toList();
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
             sliver: SliverToBoxAdapter(
                 child: Container(
-                    height: 200.0,
+                    height: 300.0,
                     child: FutureBuilder<List<Recommand>>(
                         future: futureRecommand,
                         builder: (context, snapshot) {
@@ -93,12 +93,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 RichText(
                                   text: TextSpan(
                                     text: "혹시 여긴 어떨까요?",
-                                    style: TextStyle(
+                                    style: TextStyle(fontSize: 20,
                                         fontWeight: FontWeight.bold, color: Colors.brown),
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10.0,
+                                  height: 16.0,
                                 ),
                                 Expanded(
                                     child: ListView.builder(
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         itemCount: snapshot.data?.length,
                                         itemBuilder: (context, index) {
                                           Recommand recommand = snapshot.data[index];
-                                          if (index >= posters.length) {
+                                          if (index >= 10) {
                                             index = 0;
                                           }
                                           else {
@@ -119,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     placeholder: (context, url) => new CircularProgressIndicator(),
                                                     imageUrl: "https://gus8154.pythonanywhere.com/" + recommand.Th_Img1,
                                                     fit: BoxFit.cover,
-                                                    width: 120.0,
-                                                    height: 200.0,
+                                                    width: 160.0,
+                                                    height: 500.0,
                                                   ),
                                                 ),
                                                 //   ),
@@ -137,14 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           } }
                                     )
 
-                                  /*child: ListView(
-                              //포스터 출력부분. list view로 출력하며 좌우 스크롤
-                              scrollDirection: Axis.horizontal,
-                              children: List.generate(
-                                posters.length,
-                                (index) => Poster(posterUrl: posters[index]),
-                              ) //위에 리스트로 만든 poster url값을 poster.dart로 넘겨줌
-                              )*/
+
                                 ),
                               ],
                             );
@@ -157,176 +150,152 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
             ),
           ),
-          /*
           SliverPadding(
             padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
             sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 200.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "테마별",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.brown),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                        child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: posters3.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          child: Poster(
-                            posterUrl: posters3[index],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailScreen(
-                                        posterUrl: posters3[index])));
-                          },
-                        );
-                      },
-                    )),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 200.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "인기순위",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.brown),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                        child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: posters2.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          child: Poster(
-                            posterUrl: posters2[index],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailScreen(
-                                        posterUrl: posters2[index])));
-                          },
-                        );
-                      },
-                    )),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 200.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "신규테마",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.brown),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                        child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: posters3.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          child: Poster(
-                            posterUrl: posters3[index],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailScreen(
-                                        posterUrl: posters3[index])));
-                          },
-                        );
-                      },
-                    )),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 30.0,
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "개인정보 처리 방침 영역_ home_screen.dart에 있어요",
-                        style: TextStyle(color: Colors.brown),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 30.0,
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "사업자 정보 영역_ home_screen.dart에 있어요",
-                        style: TextStyle(color: Colors.brown),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          */
+                child: Container(
+                    height: 300.0,
+                    child: FutureBuilder<List<Recommand>>(
+                        future: futureRecommand,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: "인기순위",
+                                    style: TextStyle(fontSize: 20,
+                                        fontWeight: FontWeight.bold, color: Colors.brown),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                Expanded(
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        //itemCount: posters.length,
+                                        itemCount: snapshot.data?.length,
+                                        itemBuilder: (context, index) {
+                                          Recommand recommand = snapshot.data[index];
+                                          if (index >= 10) {
+                                            index = 0;
+                                          }
+                                          else {
+                                            return GestureDetector(
+                                              child: Padding(padding: const EdgeInsets.only(right: 10.0),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(5.0),
+                                                  child: CachedNetworkImage(
+                                                    placeholder: (context, url) => new CircularProgressIndicator(),
+                                                    imageUrl: "https://gus8154.pythonanywhere.com/" + recommand.Th_Img1,
+                                                    fit: BoxFit.cover,
+                                                    width: 160.0,
+                                                    height: 500.0,
+                                                  ),
+                                                ),
+                                                //   ),
+                                              ),
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailScreen(
+                                                                Theme_id: recommand.id.toString() )));
+                                              },
+                                            );
+                                          } }
+                                    )
 
 
-//        Text("개인정보 취급 방침 영역", style: TextStyle(color: Colors.brown),),
-//        Text("사업자정보 영역", style: TextStyle(color: Colors.brown),),
+                                ),
+                              ],
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('${snapshot.error}');
+                          }
+                          return CircularProgressIndicator();
+                        }
+                    )
+                )
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.only(bottom: 40.0, left: 10.0),
+            sliver: SliverToBoxAdapter(
+                child: Container(
+                    height: 300.0,
+                    child: FutureBuilder<List<Recommand>>(
+                        future: futureRecommand,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: "신규테마",
+                                    style: TextStyle(fontSize: 20,
+                                        fontWeight: FontWeight.bold, color: Colors.brown),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                Expanded(
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        //itemCount: posters.length,
+                                        itemCount: snapshot.data?.length,
+                                        itemBuilder: (context, index) {
+                                          Recommand recommand = snapshot.data[index];
+                                          if (index >= 10) {
+                                            index = 0;
+                                          }
+                                          else {
+                                            return GestureDetector(
+                                              child: Padding(padding: const EdgeInsets.only(right: 10.0),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(5.0),
+                                                  child: CachedNetworkImage(
+                                                    placeholder: (context, url) => new CircularProgressIndicator(),
+                                                    imageUrl: "https://gus8154.pythonanywhere.com/" + recommand.Th_Img1,
+                                                    fit: BoxFit.cover,
+                                                    width: 160.0,
+                                                    height: 500.0,
+                                                  ),
+                                                ),
+                                                //   ),
+                                              ),
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailScreen(
+                                                                Theme_id: recommand.id.toString() )));
+                                              },
+                                            );
+                                          } }
+                                    )
+
+
+                                ),
+                              ],
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('${snapshot.error}');
+                          }
+                          return CircularProgressIndicator();
+                        }
+                    )
+                )
+            ),
+          ),
+
+
         ],
       ),
     );

@@ -7,8 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class Theme_detail {
   final int id;
-
-  //final String Er_Brand;
+  final Er er;
   final String Th_Name;
   final String Th_Genre;
   final String Th_Nop;
@@ -21,7 +20,7 @@ class Theme_detail {
 
   Theme_detail({
     this.id,
-    //this.Er_Brand,
+    this.er,
     this.Th_Name,
     this.Th_Genre,
     this.Th_Nop,
@@ -36,7 +35,7 @@ class Theme_detail {
   factory Theme_detail.fromJson(Map<String, dynamic> json) {
     return Theme_detail(
       id: json['id'],
-      //Er_Brand: json['Er_Brand'],
+      er: Er.fromJson(json['er']),
       Th_Name: json['Th_Name'],
       Th_Genre: json['Th_Genre'],
       Th_Nop: json['Th_Nop'],
@@ -50,10 +49,30 @@ class Theme_detail {
   }
 }
 
+class Er {
+  final String Er_Brand;
+  final String Er_Name;
+  final String Er_Num;
+  final String Er_Add;
+
+  Er({this.Er_Brand, this.Er_Name, this.Er_Num, this.Er_Add});
+
+  factory Er.fromJson(Map<String, dynamic> json) {
+    return Er(
+      Er_Brand: json['Er_Brand'],
+      Er_Name: json['Er_Name'],
+      Er_Num: json['Er_Num'],
+      Er_Add: json['Er_Add'],
+    );
+  }
+}
+
+
+
 class DetailScreen extends StatefulWidget {
   static String routeName = "/detail";
 
-  DetailScreen({Key key, this.Theme_id}) : super(key: key);
+  DetailScreen({Key key, this.Theme_id, String posterUrl}) : super(key: key);
   final String Theme_id;
 
   //DetailScreen({this.Theme_id});
@@ -130,8 +149,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               child: CachedNetworkImage(
                                 placeholder: (context, url) =>
                                 new CircularProgressIndicator(),
-                                imageUrl: "https://gus8154.pythonanywhere.com/" +
-                                    snapshot.data.Th_Img1,
+                                imageUrl: "https://gus8154.pythonanywhere.com/" + snapshot.data.Th_Img1,
                                 fit: BoxFit.cover,
                                 width: 170.0,
                                 height: 250.0,
@@ -154,7 +172,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ),
                                   Row(children: [
                                     Text(
-                                      "머더파커 전주1호점",
+                                      snapshot.data.er.Er_Brand + " " + snapshot.data.er.Er_Name,
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.black),
                                     )
@@ -250,12 +268,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                 "______________________________________________",
                                 style: TextStyle(color: Colors.black)),
                             Text(
-                              "전북 전주시 완산구 전동 168-5",
+                              snapshot.data.er.Er_Add,
                               style: TextStyle(
                                   fontSize: 13, color: Colors.black),
                             ),
                             Text(
-                              "010-5160-6542",
+                              snapshot.data.er.Er_Num,
                               style: TextStyle(
                                   fontSize: 16, color: Colors.black),
                             ),

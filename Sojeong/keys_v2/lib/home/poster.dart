@@ -17,13 +17,14 @@ class Poster extends StatelessWidget{
       onTap: () {
         Navigator.pushNamed(context, DetailScreen.routeName, arguments: DetailScreen(posterUrl: posterUrl));
       },*/
+
     child: ClipRRect(
       borderRadius: BorderRadius.circular(5.0),
       child: Image(
         image: AssetImage(posterUrl),
         fit: BoxFit.cover,
-        width: 120.0,
-        height: 200.0,
+        width: 170.0,
+        height: 400.0,
       ),
     ),
  //   ),
