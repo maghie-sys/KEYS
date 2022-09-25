@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import Er, Th
-
-
 class Random_Recommand_Theme_serial(serializers.ModelSerializer):
     class Meta:
         model = Th
@@ -9,7 +7,6 @@ class Random_Recommand_Theme_serial(serializers.ModelSerializer):
             'id',
             'Th_Img1',
         ]
-
 class Er_Detail_serial(serializers.ModelSerializer):
     class Meta:
         model = Er
@@ -20,7 +17,6 @@ class Er_Detail_serial(serializers.ModelSerializer):
             'Er_Add',
             'Er_Reservation',
         ]
-
 #------------------------------------------------------------
 class Th_Detail_serial(serializers.ModelSerializer):
     er = Er_Detail_serial(serializers.ModelSerializer)
@@ -37,4 +33,14 @@ class Th_Detail_serial(serializers.ModelSerializer):
             'Th_Intro',
             'Th_Img1',
         ]
+#-------------------------------------------------------------
 
+class search_serial(serializers.ModelSerializer):
+    er = Er_Detail_serial(serializers.ModelSerializer)
+    class Meta:
+        model=Th
+        fields = [
+            'id',
+            'er',
+            'Th_Img1',
+            ]

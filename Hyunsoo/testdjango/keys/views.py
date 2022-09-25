@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from .models import Er, Th
 from django.db.models import Avg, Max, Min, Sum, Count
 import random
-from .serializers import Random_Recommand_Theme_serial, Th_Detail_serial
+from .serializers import Random_Recommand_Theme_serial, Th_Detail_serial, search_serial
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .forms import ThemeForm, ErForm
@@ -25,6 +25,27 @@ def Random_Recommand_Theme(request, id):
     serializer = Random_Recommand_Theme_serial(randomThs, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def FT_Recommand_Theme(request, id):
+    totalThs = Th.objects.filter(
+        Q(Th_Genre__icontains="스릴러") |
+        Q(Th_Genre__icontains="공포")
+    )
+    randomThs = random.sample(list(totalThs), id)
+    serializer = Random_Recommand_Theme_serial(randomThs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def diff_Recommand_Theme(request, id):
+    totalThs = Th.objects.filter(
+        Q(Th_Diff__icontains="4") |
+        Q(Th_Diff__icontains="5") |
+        Q(Th_Diff__icontains="상")
+    )
+    randomThs = random.sample(list(totalThs), id)
+    serializer = Random_Recommand_Theme_serial(randomThs, many=True)
+    return Response(serializer.data)
+
 
 @api_view(['GET'])
 def show_Theme(request, id):
@@ -37,6 +58,23 @@ def image(request, id):
     th=th
     context = {'th': th }
     return render(request, 'image.html', context)
+
+
+@api_view(['GET'])
+def search(request, id):
+    if (id=="테마전체"):
+        searchAlls=Th.objects.all()
+    elif (id=="매장전체"):
+        searchAlls=Th.objects.select_related('er').all()
+    else :
+        searchAlls = Th.objects.select_related('er').filter(
+            Q(Th_Name__icontains=id) |
+            Q(er__Er_Name__icontains=id) |
+            Q(er__Er_Add__icontains=id) |
+            Q(Th_Genre__icontains=id)
+        )
+    serializer=search_serial(searchAlls, many=True)
+    return Response(serializer.data)
 
 
 # HTML용 view-----------------------------------------
@@ -139,7 +177,6 @@ def th_detail(request, th_id):
     #th = get_object_or_404(Th, pk=th_name)
     context = {'th': th, 'er' : er }
     return render(request, 'th/th_detail.html', context)
-
 @login_required(login_url='user:login')
 def theme_create(request, er_id):
     """테마등록"""
@@ -158,7 +195,6 @@ def theme_create(request, er_id):
         form = ThemeForm()
     context = {'er': er, 'form': form}
     return render(request, 'th/th_form.html', context)
-
 @login_required(login_url='user:login')
 def th_modify(request, th_id):
     th = Th.objects.get(id=th_id)
@@ -166,7 +202,6 @@ def th_modify(request, th_id):
     if request.user != th.author:
         messages.error(request, '수정권한이 없습니다')
         return redirect('keys:th_detail', th_id=th.id)
-
     if request.method == "POST":
         form = ThemeForm(request.POST, request.FILES, instance=th)
         if form.is_valid():
@@ -179,7 +214,6 @@ def th_modify(request, th_id):
         form = ThemeForm(instance=th)
     context = {'form': form}
     return render(request, 'th/th_form.html', context)
-
 @login_required(login_url='user:login')
 def th_delete(request, th_id):
     th=Th.objects.get(id=th_id)
